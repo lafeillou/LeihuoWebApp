@@ -1,6 +1,6 @@
 .custom-login-modal {
   .ion-page {
-    // background: url("assets/images/login_img_bg@2x.png") no-repeat 0 0;
+    background: url("../assets/img/login_img_bg@2x.png") no-repeat 0 0;
     background-size: cover;
     display: flex;
     align-items: center;
@@ -10,7 +10,7 @@
   .login-modal-wrap {
     width: 343px;
     min-height: 313px;
-    // background: url("assets/images/login_img_top@2x.png") no-repeat 0 44px;
+    background: url("../assets/img/login_img_top@2x.png") no-repeat 0 44px;
     background-size: 100% auto;
     flex: none;
     margin-top: 44px;

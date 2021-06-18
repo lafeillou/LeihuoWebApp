@@ -1,0 +1,58 @@
+.custom-login-modal {
+  .ion-page {
+    background: url("http://localhost:3000/assets/images/login_img_bg@2x.png")
+      no-repeat 0 0;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .login-modal-wrap {
+    width: 343px;
+    min-height: 313px;
+    background: url("http://localhost:3000/assets/images/login_img_top@2x.png")
+      no-repeat 0 44px;
+    background-size: 100% auto;
+    flex: none;
+    margin-top: 44px;
+
+    // 登录表单
+    .login-form {
+      margin-top: 373px;
+      .input-item-wrap {
+        padding: 8px;
+        position: relative;
+        font-size: 13px;
+
+        // 左边的icon
+        .left-icon {
+          position: absolute;
+          left: 20px;
+          top: 21px;
+          width: 14px;
+          height: 14px;
+          fill: #999;
+        }
+        .input-item {
+          height: 40px;
+          border: none;
+          background-color: #fff;
+          width: 100%;
+          text-indent: 36px;
+
+          &::placeholder {
+            color: #ccc;
+          }
+        }
+
+        // 登录按钮修改，这种方式之前从未见过
+        ion-button {
+          &::part(native) {
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+}

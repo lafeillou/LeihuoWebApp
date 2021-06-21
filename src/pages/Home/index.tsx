@@ -11,7 +11,7 @@ import Tab4 from '../Tab4';
 
 import Icon from '../../components/CustomIcon';
 
-const Home: React.FC<RouteComponentProps> = ({match}) => {
+const Home: React.FC<RouteComponentProps> = ({match, history}) => {
  return (
     <IonPage className="home-page-wrap">
     <IonContent>
@@ -19,7 +19,7 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
             <IonToolbar color="primary">
                 <IonTitle>重点管控</IonTitle>
                 <IonButtons slot="end">
-                    <IonButton>
+                    <IonButton routerLink="/person" routerDirection="forward">
                     <Icon type="geren" className="icon"/>
                     </IonButton>
                 </IonButtons>

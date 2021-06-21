@@ -9,7 +9,7 @@ import {
   IonTabs,
   useIonModal
 } from '@ionic/react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
@@ -38,37 +38,44 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Home from './pages/Home';
 import LoginModal from './components/LoginModal';
+// 个人中心页面
+import Person from './pages/Person';
 
-const logged = false;
+let logged = false;
 
 const App: React.FC = () => {
   const handleDismiss = () => {
     dismiss();
   };
 
+  const [isModalOpen, setModalOpen] = useState(true);
+
   const [present, dismiss] = useIonModal(LoginModal, {
     onDismiss: handleDismiss,
   });
 
   useEffect(() => {
-    if (!logged) {
+    if (isModalOpen) {
+
       present({
         cssClass: 'custom-login-modal',
       });
+      setModalOpen(false)
     }
   }, []);
 
   // 如果没有登录，则弹出
   return (
-    <IonApp>
       <IonReactRouter>
+        <IonApp>
         <IonRouterOutlet>
           <Route  path="/register" component={Register} />
+          <Route  path="/person" component={Person} />
           <Route  path="/home" render={props => <Home {...props} />} />
           <Route exact path="/"  render={() => <Redirect to="/home" />} />
         </IonRouterOutlet>
+        </IonApp>
       </IonReactRouter>
-    </IonApp>
   );
 }
 

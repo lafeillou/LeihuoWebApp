@@ -18,6 +18,20 @@
     // 登录表单
     .login-form {
       margin-top: 373px;
+      // 忘记密码 和 账号注册 按钮容器
+      .subBtn-item-wrap {
+        margin-top: -8px;
+        padding: 0 8px;
+        text-align: right;
+        ion-button {
+          &::part(native) {
+            --padding-bottom: 0;
+            --padding-end: 0;
+            --padding-start: 0;
+            --padding-top: 0;
+          }
+        }
+      }
       .input-item-wrap {
         padding: 8px;
         position: relative;

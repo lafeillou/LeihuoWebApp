@@ -9,7 +9,9 @@
     width: 20px;
     height: 20px;
   }
-  z-index: 102 !important;
+  ion-header {
+    z-index: 102 !important;
+  }
 
   ion-toolbar {
     --border-color: transparent;

@@ -52,9 +52,13 @@
           background-color: #fff;
           width: 100%;
           text-indent: 36px;
+          color: #666;
 
           &::placeholder {
             color: #ccc;
+          }
+          &.error {
+            background-color: rgba(235, 68, 90, 0.65);
           }
         }
 

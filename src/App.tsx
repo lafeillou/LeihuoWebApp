@@ -38,6 +38,14 @@ import LoginModal from './components/LoginModal';
 import Person from './pages/Person';
 // import { createBrowserHistory } from 'history';
 // const history = createBrowserHistory();
+
+// 增加redux状态管理
+import configureStore from './store/index';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/es/integration/react';
+
+const { persistor, store } = configureStore();
+
 let logged = false ;
 const App: React.FC = () => {
   const handleDismiss = () => {
@@ -60,18 +68,22 @@ const App: React.FC = () => {
 
   // 如果没有登录，则弹出
   return (
-      <IonReactRouter>
-        <IonApp>
-        <IonRouterOutlet>
-          <Route  path="/register">
-            <Register handlePresent={handlePresent} />
-          </Route>
-          <Route  path="/person" component={Person} />
-          <Route  path="/home" render={props => <Home {...props} />} />
-          <Route exact path="/"  render={() => logged ? <Redirect to="/home" />: <Redirect to="/register" />} />
-        </IonRouterOutlet>
-        </IonApp>
-      </IonReactRouter>
+    <Provider store={store} >
+      <PersistGate loading={null} persistor={persistor}>
+        <IonReactRouter>
+          <IonApp>
+          <IonRouterOutlet>
+            <Route  path="/register">
+              <Register handlePresent={handlePresent} />
+            </Route>
+            <Route  path="/person" component={Person} />
+            <Route  path="/home" render={props => <Home {...props} />} />
+            <Route exact path="/"  render={() => logged ? <Redirect to="/home" />: <Redirect to="/register" />} />
+          </IonRouterOutlet>
+          </IonApp>
+        </IonReactRouter>
+      </PersistGate>
+      </Provider>
   );
 }
 

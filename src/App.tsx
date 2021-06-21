@@ -51,11 +51,11 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    // if (!logged) {
-    //   present({
-    //     cssClass: 'custom-login-modal',
-    //   });
-    // }
+    if (!logged) {
+      present({
+        cssClass: 'custom-login-modal',
+      });
+    }
   }, []);
 
   // 如果没有登录，则弹出

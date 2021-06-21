@@ -5,7 +5,7 @@
     height: 20px;
   }
   .tab-icon {
-    fill: #666;
+    fill: #8e8e8e;
     width: 20px;
     height: 20px;
   }
@@ -17,5 +17,13 @@
 
   ion-title {
     --color: #fff;
+  }
+
+  ion-tab-button {
+    &.tab-selected {
+      svg {
+        fill: #319ffa !important;
+      }
+    }
   }
 }

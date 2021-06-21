@@ -1,9 +1,16 @@
-.home-page-header {
-  .right-icon {
+.home-page-wrap {
+  .icon {
     fill: #fff;
     width: 20px;
     height: 20px;
   }
+  .tab-icon {
+    fill: #666;
+    width: 20px;
+    height: 20px;
+  }
+  z-index: 102 !important;
+
   ion-toolbar {
     --border-color: transparent;
   }

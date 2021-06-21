@@ -7,19 +7,20 @@ import './home.scss';
 import Tab1 from '../Tab1';
 import Tab2 from '../Tab2';
 import Tab3 from '../Tab3';
+import Tab4 from '../Tab4';
 
 import Icon from '../../components/CustomIcon';
 
 const Home: React.FC<RouteComponentProps> = ({match}) => {
  return (
-    <IonPage>
-    <IonContent fullscreen>
-        <IonHeader className="home-page-header" mode="ios">
+    <IonPage className="home-page-wrap">
+    <IonContent>
+        <IonHeader mode="ios">
             <IonToolbar color="primary">
                 <IonTitle>重点管控</IonTitle>
                 <IonButtons slot="end">
                     <IonButton>
-                    <Icon type="geren" className="right-icon"/>
+                    <Icon type="geren" className="icon"/>
                     </IonButton>
                 </IonButtons>
             </IonToolbar>
@@ -28,24 +29,15 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
     <IonRouterOutlet style={{marginTop: '44px'}}><Route path="/home/tab1" component={Tab1} />
         <Route  path="/home/tab2" component={Tab2} />
         <Route  path="/home/tab3" component={Tab3} />
+        <Route  path="/home/tab4" component={Tab4} />
         <Route  exact path="/home"  render={() => <Redirect to="/home/tab1" />} /></IonRouterOutlet>
         <IonTabBar slot="bottom">
-​            <IonTabButton tab="tab1" href="/home/tab1">
-​              <IonIcon icon={triangle} />
-​              <IonLabel>Tab 1</IonLabel>
-​            </IonTabButton>
-​            <IonTabButton tab="tab2" href="/home/tab2">
-​              <IonIcon icon={ellipse} />
-​              <IonLabel>Tab 2</IonLabel>
-​            </IonTabButton>
-​            <IonTabButton tab="tab3" href="/home/tab3">
-​              <IonIcon icon={square} />
-​              <IonLabel>Tab 3</IonLabel>
-​            </IonTabButton>
+            <IonTabButton tab="tab1" href="/home/tab1"><Icon type="guankong" className="tab-icon"/><IonLabel>重点管控</IonLabel></IonTabButton>
+​            <IonTabButton tab="tab2" href="/home/tab2"><Icon type="jingqing" className="tab-icon"/><IonLabel>警情通报</IonLabel></IonTabButton>
+​            <IonTabButton tab="tab3" href="/home/tab3"><Icon type="tongzhi" className="tab-icon"/><IonLabel>通知公告</IonLabel></IonTabButton>
+            <IonTabButton tab="tab4" href="/home/tab4"><Icon type="falv" className="tab-icon"/><IonLabel>法律指引</IonLabel></IonTabButton>
 ​          </IonTabBar>
     </IonTabs></IonContent></IonPage>)
 };
-
-
 
 export default Home;

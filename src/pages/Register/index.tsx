@@ -1,13 +1,13 @@
 import React from 'react';
 import './Register.scss';
-import {IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
+import {IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
 
 import  Icon from '../../components/CustomIcon';
 
 const Register: React.FC<any> = () => {
     return (
-    <>
-        <IonHeader >
+    <IonPage>
+        <IonHeader mode="ios">
             <IonToolbar>
                 <IonButtons slot="start">
                     <IonBackButton defaultHref="/" text="返回"/>
@@ -49,7 +49,7 @@ const Register: React.FC<any> = () => {
                     </div>
             </div>
         </IonContent>
-    </>
+    </IonPage>
     )
 };
 

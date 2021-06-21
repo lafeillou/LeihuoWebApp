@@ -178,3 +178,10 @@ export const login = (data) => {
     data,
   });
 };
+
+export const getCorsTestResult = () => {
+  return axios({
+    method: "post",
+    url: "/topics",
+  });
+};

@@ -3,7 +3,7 @@ import {IonButton} from '@ionic/react'
 import './LoginModal.scss';
 import  Icon from './CustomIcon';
 import classnames from 'classnames';
-import { login } from '../api/common';
+import { login, getCorsTestResult } from '../api/common';
 import {useForm, SubmitHandler} from 'react-hook-form';
 type loginForm = {
   name: string,
@@ -17,12 +17,16 @@ const LoginModal: React.FC<{
   
     const onSubmit: SubmitHandler<loginForm> = (data) => {
       const {policeCode, name} = data;
-      login({
-        policeNo: policeCode,
-        password: policeCode,
-        // name
-      }).then( res => {
-        console.log('=====')
+      // login({
+      //   policeNo: policeCode,
+      //   password: policeCode,
+      //   // name
+      // }).then( res => {
+      //   console.log('=====')
+      //   console.log(res)
+      // })
+      getCorsTestResult().then(res => {
+        console.log("======")
         console.log(res)
       })
     }

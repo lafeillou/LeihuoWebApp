@@ -12,9 +12,11 @@ const config = {
   // dateFormat: 'Do MMM YYYY',
 
   // API
-  apiBaseUrl: isDevEnv
-    ? "http://192.168.8.200/api"
-    : "http://192.168.8.200/api",
+  apiBaseUrl: "/",
+  //apiBaseUrl: "http://localhost:3001",
+  // apiBaseUrl: isDevEnv
+  //   ? "http://192.168.8.200/api"
+  //   : "http://192.168.8.200/api",
   allocServerUrl: isDevEnv
     ? "http://192.168.8.200:9999"
     : "http://192.168.8.200:9999",

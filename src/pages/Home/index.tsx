@@ -11,7 +11,7 @@ import Tab4 from '../Tab4';
 
 import Icon from '../../components/CustomIcon';
 
-const Home: React.FC<RouteComponentProps> = ({match, history}) => {
+const Home: React.FC<RouteComponentProps> = ({match}) => {
  return (
     <IonPage className="home-page-wrap">
     <IonContent>

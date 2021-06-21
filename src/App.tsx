@@ -41,26 +41,26 @@ import LoginModal from './components/LoginModal';
 // 个人中心页面
 import Person from './pages/Person';
 
-let logged = false;
+import { createBrowserHistory } from 'history';
 
+const history = createBrowserHistory();
+let logged = false ;
 const App: React.FC = () => {
   const handleDismiss = () => {
     dismiss();
   };
-
-  const [isModalOpen, setModalOpen] = useState(true);
-
+  const handlePresent = () => {
+    present({
+      cssClass: 'custom-login-modal',
+    });
+  }
   const [present, dismiss] = useIonModal(LoginModal, {
     onDismiss: handleDismiss,
   });
 
   useEffect(() => {
-    if (isModalOpen) {
-
-      present({
-        cssClass: 'custom-login-modal',
-      });
-      setModalOpen(false)
+    if (!logged) {
+      handlePresent();
     }
   }, []);
 
@@ -69,10 +69,12 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonApp>
         <IonRouterOutlet>
-          <Route  path="/register" component={Register} />
+          <Route  path="/register">
+            <Register handlePresent={handlePresent} />
+          </Route>
           <Route  path="/person" component={Person} />
           <Route  path="/home" render={props => <Home {...props} />} />
-          <Route exact path="/"  render={() => <Redirect to="/home" />} />
+          <Route exact path="/"  render={() => logged ? <Redirect to="/home" />: <Redirect to="/register" />} />
         </IonRouterOutlet>
         </IonApp>
       </IonReactRouter>

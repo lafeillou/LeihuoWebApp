@@ -4,13 +4,15 @@ import {IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, Io
 
 import  Icon from '../../components/CustomIcon';
 
-const Register: React.FC<any> = () => {
+const Register: React.FC<any> = ({handlePresent}) => {
+    console.log('====handlePresent====')
+    console.log(handlePresent)
     return (
     <IonPage>
         <IonHeader mode="ios">
             <IonToolbar>
                 <IonButtons slot="start">
-                    <IonBackButton defaultHref="/" text="返回"/>
+                    <IonButton onClick={() => {handlePresent()}}>返回</IonButton>
                 </IonButtons>
                 <IonTitle color="#252525">注 册</IonTitle>
             </IonToolbar>

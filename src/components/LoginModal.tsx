@@ -23,7 +23,7 @@ const LoginModal: React.FC<{
       </IonButton>
       </div>
       <div className="subBtn-item-wrap">
-          <IonButton fill="clear" onClick={() => {onDismiss(); }} routerLink="/register">账号注册</IonButton>
+          <IonButton fill="clear" onClick={() => {onDismiss()}}>账号注册</IonButton>
       </div>
     </div>
   </div>)

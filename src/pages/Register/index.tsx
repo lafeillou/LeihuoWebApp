@@ -5,8 +5,6 @@ import {IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, Io
 import  Icon from '../../components/CustomIcon';
 
 const Register: React.FC<any> = ({handlePresent}) => {
-    console.log('====handlePresent====')
-    console.log(handlePresent)
     return (
     <IonPage>
         <IonHeader mode="ios">

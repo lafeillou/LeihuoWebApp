@@ -2,7 +2,7 @@ import React from 'react';
 import './Register.scss';
 import {IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
 
-import  Icon from '../CustomIcon';
+import  Icon from '../../components/CustomIcon';
 
 const Register: React.FC<any> = () => {
     return (

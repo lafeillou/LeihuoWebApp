@@ -16,7 +16,7 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
-import Register from './components/Register';
+import Register from './pages/Register';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -36,6 +36,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Home from './pages/Home';
 import LoginModal from './components/LoginModal';
 
 const logged = false;
@@ -50,11 +51,11 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    if (!logged) {
-      present({
-        cssClass: 'custom-login-modal',
-      });
-    }
+    // if (!logged) {
+    //   present({
+    //     cssClass: 'custom-login-modal',
+    //   });
+    // }
   }, []);
 
   // 如果没有登录，则弹出
@@ -62,12 +63,9 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/register" /> 
-          </Route>
+          <Route  path="/register" component={Register} />
+          <Route  path="/home" render={props => <Home {...props} />} />
+          <Route exact path="/"  render={() => <Redirect to="/home" />} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

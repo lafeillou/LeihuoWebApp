@@ -40,10 +40,8 @@ import Home from './pages/Home';
 import LoginModal from './components/LoginModal';
 // 个人中心页面
 import Person from './pages/Person';
-
-import { createBrowserHistory } from 'history';
-
-const history = createBrowserHistory();
+// import { createBrowserHistory } from 'history';
+// const history = createBrowserHistory();
 let logged = false ;
 const App: React.FC = () => {
   const handleDismiss = () => {

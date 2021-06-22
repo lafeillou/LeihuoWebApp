@@ -92,10 +92,6 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
   };
 
   const setReadStatus = ({ module, subType, index }:any) => {
-    console.log('===setReadStatus===');
-    console.log(module);
-    console.log(subType);
-    console.log(index);
     setAccordianData((state:any) => {
       console.log(state);
       const newData = [...state.data];
@@ -131,7 +127,7 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
     <IonContent>
         <IonHeader mode="ios">
             <IonToolbar color="primary">
-                <IonTitle>重点管控</IonTitle>
+                <IonTitle>{footerTabs.data[footerTabs.selectedIndex].name}</IonTitle>
                 <IonButtons slot="end">
                     <IonButton routerLink="/person" routerDirection="forward">
                     <Icon type="geren" className="icon"/>

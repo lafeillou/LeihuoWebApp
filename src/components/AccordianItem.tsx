@@ -1,20 +1,21 @@
 import {IonIcon} from "@ionic/react";
 import { caretDownOutline, caretForwardOutline} from 'ionicons/icons';
 import CustomList from "./CustomListItem";
-
+import './AccordianItem.scss';
 const AccordianItem = (props:any) => {
     const { name, type, messages, select, selectedIndex, setReadStatus, index, module } = props;
     const isActive = index === selectedIndex;
     return (
-      <div>
+      <div className="accordianItemWrap">
         <div
           onClick={() => {
             select(index);
           }}
+          className="accordianItemWrap-head"
         >
           <div>
           <IonIcon icon={isActive ? caretDownOutline: caretForwardOutline} />
-            <span>{name}</span>
+            <span className="title">{name}</span>
           </div>
         </div>
         {isActive && (

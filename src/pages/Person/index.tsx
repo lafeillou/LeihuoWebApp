@@ -24,6 +24,4 @@ const Person: React.FC<any> = () => {
     )
 };
 
-
-
 export default Person;

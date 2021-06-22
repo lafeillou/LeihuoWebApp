@@ -1,9 +1,9 @@
 import React from 'react';
-import {IonButton} from '@ionic/react'
+import {IonButton, useIonToast} from '@ionic/react'
 import './LoginModal.scss';
 import  Icon from './CustomIcon';
 import classnames from 'classnames';
-import { login, getCorsTestResult } from '../api/common';
+import { login } from '../api/common';
 import {useForm, SubmitHandler} from 'react-hook-form';
 type loginForm = {
   name: string,
@@ -12,7 +12,7 @@ type loginForm = {
 const LoginModal: React.FC<{
     onDismiss: () => void;
   }> = ({ onDismiss}) => {
-
+    const [present, dismiss] = useIonToast();
     const {register, handleSubmit, formState: {errors}} = useForm<loginForm>();
   
     const onSubmit: SubmitHandler<loginForm> = (data) => {
@@ -22,8 +22,19 @@ const LoginModal: React.FC<{
         password: policeCode,
         // name
       }).then( res => {
-        console.log('=====')
-        console.log(res)
+        if (!res.data.success) {
+          present({
+            message: res.data.msg,
+            duration: 3000
+          })
+        }
+        // to do 登录成功后的操作
+      }).catch(err => {
+          present({
+            message: err,
+            color: 'danger',
+            duration: 3000
+          })
       })
     }
 

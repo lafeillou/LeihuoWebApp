@@ -2,6 +2,7 @@
   "name": "LeihuoWebApp",
   "version": "0.0.1",
   "private": true,
+  "homepage": "/webApp",
   "dependencies": {
     "@babel/core": "7.12.3",
     "@capacitor/app": "1.0.0",

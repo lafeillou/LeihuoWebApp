@@ -70,7 +70,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store} >
       <PersistGate loading={null} persistor={persistor}>
-        <IonReactRouter>
+        <IonReactRouter basename="/webApp">
           <IonApp>
           <IonRouterOutlet>
             <Route  path="/register">

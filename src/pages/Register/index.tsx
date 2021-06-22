@@ -1,7 +1,6 @@
 import React from 'react';
 import './Register.scss';
 import {IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
-
 import  Icon from '../../components/CustomIcon';
 
 const Register: React.FC<any> = ({handlePresent}) => {

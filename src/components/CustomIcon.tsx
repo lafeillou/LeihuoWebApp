@@ -4,7 +4,8 @@ import './CustomIcon.scss';
 
 // 引入iconfont.js
 const scriptElem = document.createElement('script');
-scriptElem.src = 'assets/fonts/iconfont.js';
+// 为什么要把二级目录写上去 webApp
+scriptElem.src = 'webApp/assets/fonts/iconfont.js';
 document.body.appendChild(scriptElem);
 
 

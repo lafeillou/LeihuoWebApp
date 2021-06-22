@@ -24,6 +24,9 @@
       &::placeholder {
         color: #ccc;
       }
+      &.error {
+        background-color: rgba(235, 68, 90, 0.65);
+      }
     }
     ion-button {
       margin-top: 16px;

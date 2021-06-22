@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './Register.scss';
 import {useIonModal, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, IonSelect, IonSelectOption, useIonToast } from '@ionic/react';
 import  Icon from '../../components/CustomIcon';
-import {useForm, SubmitHandler} from 'react-hook-form';
+import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import classnames from 'classnames';
 import CustomSelectModal from '../../components/CustomSelect';
 import {register as sysRegister} from '../../api/common';
@@ -20,13 +20,14 @@ type registerForm = {
 
 let orgId:number = 0; 
 let deptId:number = 0;
-
+// react-hook-from组件 链接 自定义的机构选择器组件；开始没有链接，后面保持一种链接
+let onJurisdictionValueChange: any = null;
 const Register: React.FC<any> = ({handlePresent}) => {
 
     const [gender, setGender] = useState<string>("男");
     const [jurisdiction, setJurisdiction] = useState<string>("");
 
-    const {register, handleSubmit, formState: {errors}} = useForm<registerForm>();
+    const {register, handleSubmit, control, formState: {errors}} = useForm<registerForm|any>();
 
     const handleDismiss = () => {
         dismiss();
@@ -44,7 +45,9 @@ const Register: React.FC<any> = ({handlePresent}) => {
         // 收集选择的部门id, 岗位id
         orgId = data.currentSelectDep.orgId;
         deptId = data.currentSelectUnit.deptId;
-        setJurisdiction(`${data.currentSelectDep.orgName} - ${data.currentSelectUnit.deptName}`)
+        const jurisdiction = `${data.currentSelectDep.orgName} - ${data.currentSelectUnit.deptName}`
+        onJurisdictionValueChange(jurisdiction)
+        setJurisdiction(jurisdiction)
     }
 
     const [toastPresent, toastDismiss] = useIonToast();
@@ -133,8 +136,13 @@ const Register: React.FC<any> = ({handlePresent}) => {
 
                 <div className="input-item-wrap">
                     <Icon type="zuzhi-app" className="left-icon"/>
-                    {/* <input type="text" {...register("jurisdiction", {required: true})} className={classnames('input-item', {error: errors.jurisdiction})} placeholder="请选择您的部门"/> */}
-                    <div className="input-item" style={{lineHeight: '40px'}} onClick={() => {handleCustomSelectModalPresent()}}>{jurisdiction? <span>{jurisdiction}</span>:<span style={{color: '#ccc'}}>请选择您的部门</span>}</div>
+                    <Controller
+                    rules={{required: true}}
+                    defaultValue={jurisdiction}
+                    name="jurisdiction"
+                    control={control} render={
+                        ({field: {onChange, onBlur, value}}) => (<div className={classnames('input-item', {error: errors.jurisdiction})} style={{lineHeight: '40px'}} onClick={() => {onJurisdictionValueChange = onChange;handleCustomSelectModalPresent();}}>{jurisdiction? <span>{jurisdiction}</span>:<span style={{color: '#ccc'}}>请选择您的部门</span>}</div>)
+                    } />
                 </div>
 
                 <div className="input-item-wrap">

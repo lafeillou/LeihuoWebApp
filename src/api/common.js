@@ -171,10 +171,20 @@ export const getSubMsgList = ({ module, type, size = 10, page = 1 }) => {
 };
 
 // web版接口 2021-06-21
+// 登录接口
 export const login = (data) => {
   return axios({
     method: "post",
     url: "/sys/login",
+    data,
+  });
+};
+
+// 注册接口
+export const register = (data) => {
+  return axios({
+    method: "post",
+    url: "/sys/register",
     data,
   });
 };

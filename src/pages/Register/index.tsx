@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import './Register.scss';
-import {useIonModal, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, IonSelect, IonSelectOption } from '@ionic/react';
+import {useIonModal, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, IonSelect, IonSelectOption, useIonToast } from '@ionic/react';
 import  Icon from '../../components/CustomIcon';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import classnames from 'classnames';
 import CustomSelectModal from '../../components/CustomSelect';
+import {register as sysRegister} from '../../api/common';
 
 type registerForm = {
     name: string,
@@ -17,9 +18,13 @@ type registerForm = {
     deptId: number
 }
 
+let orgId:number = 0; 
+let deptId:number = 0;
+
 const Register: React.FC<any> = ({handlePresent}) => {
 
     const [gender, setGender] = useState<string>("男");
+    const [jurisdiction, setJurisdiction] = useState<string>("");
 
     const {register, handleSubmit, formState: {errors}} = useForm<registerForm>();
 
@@ -35,39 +40,60 @@ const Register: React.FC<any> = ({handlePresent}) => {
     
       // 处理自定义机构选择组件，返回的选择结果
     const handleCustomSelectResult = (data: any) => {
-        console.log(data)
+        // console.log(data)
+        // 收集选择的部门id, 岗位id
+        orgId = data.currentSelectDep.orgId;
+        deptId = data.currentSelectUnit.deptId;
+        setJurisdiction(`${data.currentSelectDep.orgName} - ${data.currentSelectUnit.deptName}`)
     }
+
+    const [toastPresent, toastDismiss] = useIonToast();
+
     const [present, dismiss] = useIonModal(CustomSelectModal, {
         onDismiss: handleDismiss,
         // 自定义机构选择组件，回填表单
         onHandleCustomSelect: handleCustomSelectResult,
     });
 
-    
     const onSubmit: SubmitHandler<registerForm> = (data) => {
-        const {name, password, phone, policeNo, sex, orgId, jurisdiction, deptId} = data;
-        console.log(data)
-        // login({
-        //   policeNo: policeCode,
-        //   password: policeCode,
-        //   // name
-        // }).then( res => {
-        //   if (!res.data.success) {
-        //     present({
-        //       message: res.data.msg,
-        //       duration: 3000
-        //     })
-        //   }
-        //   // to do 登录成功后的操作
-        // }).catch(err => {
-        //     present({
-        //       message: err,
-        //       color: 'danger',
-        //       duration: 3000
-        //     })
-        // })
+        const {name, password, phone, policeNo} = data;
+        sysRegister({
+            name,
+            password,
+            phone,
+            policeNo,
+            sex: gender,
+            orgId,
+            jurisdiction,
+            deptId
+        }).then(res => {
+            console.log('=======sysRegister')
+            console.log(res)
+            if(res.data.success) {
+                toastPresent({
+                    message: "恭喜您注册成功！3秒钟后回到登录界面",
+                    duration: 3000,
+                })
+                // 返回登录界面，重新登录
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 3000) 
+                // 这里调用dismiss 竟然没用，就采用了window.location.href的写法
+                return
+            } 
+                toastPresent({
+                    message: res.data.msg,
+                    duration: 3000,
+                    })
+            
+        }).catch(err => {
+            toastPresent({
+              message: err,
+              color: 'danger',
+              duration: 3000
+            })
+        })
       }
-
 
     return (
     <IonPage>
@@ -108,7 +134,7 @@ const Register: React.FC<any> = ({handlePresent}) => {
                 <div className="input-item-wrap">
                     <Icon type="zuzhi-app" className="left-icon"/>
                     {/* <input type="text" {...register("jurisdiction", {required: true})} className={classnames('input-item', {error: errors.jurisdiction})} placeholder="请选择您的部门"/> */}
-                    <div className="input-item" style={{lineHeight: '40px'}} onClick={() => {handleCustomSelectModalPresent()}}><span style={{color: '#ccc'}}>请选择您的部门</span></div>
+                    <div className="input-item" style={{lineHeight: '40px'}} onClick={() => {handleCustomSelectModalPresent()}}>{jurisdiction? <span>{jurisdiction}</span>:<span style={{color: '#ccc'}}>请选择您的部门</span>}</div>
                 </div>
 
                 <div className="input-item-wrap">

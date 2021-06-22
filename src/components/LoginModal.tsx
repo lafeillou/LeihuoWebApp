@@ -22,13 +22,14 @@ const LoginModal: React.FC<{
         password: policeCode,
         // name
       }).then( res => {
-        if (!res.data.success) {
+        if (res.data.success) {
           present({
             message: res.data.msg,
             duration: 3000
           })
         }
         // to do 登录成功后的操作
+        // 设置redux跳转去首页
       }).catch(err => {
           present({
             message: err,

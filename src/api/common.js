@@ -178,10 +178,18 @@ export const login = (data) => {
     data,
   });
 };
-
+// 测试跨域接口
 export const getCorsTestResult = () => {
   return axios({
     method: "post",
     url: "/topics",
+  });
+};
+
+// 查询业务部门列表，拍平的结构
+export const getDepList = () => {
+  return axios({
+    method: "get",
+    url: "/org/queryOrgDepartmentList",
   });
 };

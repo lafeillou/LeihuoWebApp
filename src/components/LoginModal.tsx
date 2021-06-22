@@ -17,16 +17,12 @@ const LoginModal: React.FC<{
   
     const onSubmit: SubmitHandler<loginForm> = (data) => {
       const {policeCode, name} = data;
-      // login({
-      //   policeNo: policeCode,
-      //   password: policeCode,
-      //   // name
-      // }).then( res => {
-      //   console.log('=====')
-      //   console.log(res)
-      // })
-      getCorsTestResult().then(res => {
-        console.log("======")
+      login({
+        policeNo: policeCode,
+        password: policeCode,
+        // name
+      }).then( res => {
+        console.log('=====')
         console.log(res)
       })
     }

@@ -68,7 +68,7 @@ const App: React.FC<any> = ({login}) => {
         handlePresent();
       }else {
         setToken(token)
-        routeComGlobal.current.history.push("/home")
+        routeComGlobal.current.history.push("/person")
       }
     } catch (error) {
       // 出错让重新登录

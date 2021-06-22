@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Register.scss';
-import {IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
+import {IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, IonSelect, IonSelectOption } from '@ionic/react';
 import  Icon from '../../components/CustomIcon';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import classnames from 'classnames';
@@ -17,6 +17,8 @@ type registerForm = {
 }
 
 const Register: React.FC<any> = ({handlePresent}) => {
+
+    const [gender, setGender] = useState<string>("男");
 
     const {register, handleSubmit, formState: {errors}} = useForm<registerForm>();
 
@@ -73,8 +75,12 @@ const Register: React.FC<any> = ({handlePresent}) => {
                 </div>
 
                 <div className="input-item-wrap">
-                    <Icon type="xingbie-app" className="left-icon"/>
-                    <input type="text" {...register("sex", {required: true})} className={classnames('input-item', {error: errors.sex})} placeholder="请选择您的性别"/>
+                    <Icon type="xingbie-app" className="left-icon" style={{zIndex: 3}}/>
+                    {/* <input type="text" {...register("sex", {required: true})} className={classnames('input-item', {error: errors.sex})} placeholder="请选择您的性别"/> */}
+                    <IonSelect interface="action-sheet"  okText="确定" cancelText="取消" value={gender} placeholder="请选择您的性别" onIonChange={e => setGender(e.detail.value)}>
+                        <IonSelectOption value="女">女</IonSelectOption>
+                        <IonSelectOption value="男">男</IonSelectOption>
+                    </IonSelect>
                 </div>
 
                 <div className="input-item-wrap">

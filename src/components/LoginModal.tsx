@@ -3,42 +3,27 @@ import {IonButton, useIonToast} from '@ionic/react'
 import './LoginModal.scss';
 import  Icon from './CustomIcon';
 import classnames from 'classnames';
-import { login } from '../api/common';
 import {useForm, SubmitHandler} from 'react-hook-form';
+// redux
+// import { connect } from 'react-redux';
+
 type loginForm = {
   name: string,
   policeCode: string,
 }
 const LoginModal: React.FC<{
     onDismiss: () => void;
-  }> = ({ onDismiss}) => {
+    login: any;
+  }> = ({ onDismiss, login}) => {
     const [present, dismiss] = useIonToast();
     const {register, handleSubmit, formState: {errors}} = useForm<loginForm>();
   
     const onSubmit: SubmitHandler<loginForm> = (data) => {
       const {policeCode, name} = data;
-      login({
-        policeNo: policeCode,
-        password: policeCode,
-        // name
-      }).then( res => {
-        if (res.data.success) {
-          present({
-            message: res.data.msg,
-            duration: 3000
-          })
-        }
-        // to do 登录成功后的操作
-        // 设置redux跳转去首页
-      }).catch(err => {
-          present({
-            message: err,
-            color: 'danger',
-            duration: 3000
-          })
-      })
+      // redux effects
+      console.log(login);
+      login({...data, present})
     }
-
 
     return (<div className="login-modal-wrap">
     <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
@@ -64,6 +49,14 @@ const LoginModal: React.FC<{
     
   };
 
-
+  // const mapStateToProps = (state:any) => {
+  //   return {
+  //     userInfo: state.userInfo,
+  //   };
+  // };
+  
+  // const mapDispatchToProps = (dispatch:any) => ({
+  //     login: dispatch.userInfo.login
+  // });
 
 export default LoginModal;

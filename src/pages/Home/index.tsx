@@ -1,17 +1,129 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
 import {IonHeader, IonToolbar, IonTitle, IonPage, IonContent, IonButtons, IonIcon, IonButton, IonSearchbar, IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonLabel} from '@ionic/react';
-import { triangle, ellipse, square, calendar, personCircle, informationCircle, map} from 'ionicons/icons';
+// import { triangle } from 'ionicons/icons';
 import './home.scss';
-// import  Icon from '../../components/CustomIcon';
-import Tab1 from '../Tab1';
-import Tab2 from '../Tab2';
-import Tab3 from '../Tab3';
-import Tab4 from '../Tab4';
-
+import Accordian from '../../components/Accordian';
 import Icon from '../../components/CustomIcon';
 
+// 引入接口
+import {getIndexTabsData} from '../../api/common';
+import _ from "lodash";
+
 const Home: React.FC<RouteComponentProps> = ({match}) => {
+
+    const [footerTabs, setFooterTabs] = useState<any>({
+        selectedIndex: 0,
+        data: [
+          {
+            name: '重点管控',
+            module: 'ZDGK',
+            icon: 'guankong',
+          },
+          {
+            name: '警情通报',
+            module: 'JQTB',
+            icon: 'jingqing',
+          },
+          {
+            name: '通知公告',
+            module: 'TZGG',
+            icon: 'tongzhi',
+          },
+          {
+            name: '法律指引',
+            module: 'FLZY',
+            icon: 'falv',
+          },
+        ],
+      });
+
+      const [accordianData, setAccordianData] = useState<any>({ selectedIndex: 0, data: [] });
+
+  // 相当于componentDidMount
+  useEffect(() => {
+    handleTabSelect(0);
+  }, []);
+
+  const handleTabSelect = (index:number) => {
+    // 从服务器查询数据
+    getIndexTabsData(footerTabs.data[index].module).then((res) => {
+      console.log('================res===============');
+      console.log(res);
+      // start loading
+      if (res.data.status === 200) {
+        // end loading
+        setAccordianData((state:any) => {
+          const data = res.data.data;
+          return {
+            ...state,
+            data,
+          };
+        });
+      }
+    });
+    setFooterTabs((state:any) => {
+      return {
+        ...state,
+        selectedIndex: index,
+      };
+    });
+    // 默认展开第一个
+    setAccordianData((state:any) => {
+      return {
+        ...state,
+        selectedIndex: 0,
+      };
+    });
+  };
+
+  const selectAccordian = (index:number) => {
+    setAccordianData((state:any) => {
+      // 点击的就是当前已经展开的项
+      if (index === state.selectedIndex) {
+        return {
+          ...state,
+          selectedIndex: -1,
+        };
+      }
+      return {
+        ...state,
+        selectedIndex: index,
+      };
+    });
+  };
+
+  const setReadStatus = ({ module, subType, index }:any) => {
+    console.log('===setReadStatus===');
+    console.log(module);
+    console.log(subType);
+    console.log(index);
+    setAccordianData((state:any) => {
+      console.log(state);
+      const newData = [...state.data];
+      const Index = _.findIndex(newData, (o:any) => {
+        return o.type === subType;
+      });
+      if (Index >= 0) {
+        if (newData[Index].messages.length >= 0) {
+          newData[Index].messages[index].readStatus = true;
+        }
+      }
+      return {
+        ...state,
+        data: newData,
+      };
+    });
+  };
+
+  const goToPersonPage = () => {
+    // if (userInfo.status === 2) {
+    //   Actions.person();
+    // } else {
+    //   Actions.bindModal();
+    // }
+  };
+
  return (
     <IonPage className="home-page-wrap">
     <IonContent>
@@ -26,16 +138,17 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
             </IonToolbar>
         </IonHeader>
     <IonTabs>
-    <IonRouterOutlet style={{marginTop: '44px'}}><Route path="/home/tab1" component={Tab1} />
-        <Route  path="/home/tab2" component={Tab2} />
-        <Route  path="/home/tab3" component={Tab3} />
-        <Route  path="/home/tab4" component={Tab4} />
-        <Route  exact path="/home"  render={() => <Redirect to="/home/tab1" />} /></IonRouterOutlet>
+    <IonRouterOutlet style={{marginTop: '44px'}}>{footerTabs.data.map((o:any, i:number) => {
+                return (<Route path={`/home/tab${i+1}`} key={o.name}><Accordian data={accordianData.data}
+                select={selectAccordian}
+                setReadStatus={setReadStatus}
+                module={footerTabs.data[footerTabs.selectedIndex].module}
+                selectedIndex={accordianData.selectedIndex}/></Route>)
+            })}<Route  exact path="/home"  render={() => <Redirect to="/home/tab1" />} /></IonRouterOutlet>
         <IonTabBar slot="bottom">
-            <IonTabButton tab="tab1" href="/home/tab1"><Icon type="guankong" className="tab-icon"/><IonLabel>重点管控</IonLabel></IonTabButton>
-​            <IonTabButton tab="tab2" href="/home/tab2"><Icon type="jingqing" className="tab-icon"/><IonLabel>警情通报</IonLabel></IonTabButton>
-​            <IonTabButton tab="tab3" href="/home/tab3"><Icon type="tongzhi" className="tab-icon"/><IonLabel>通知公告</IonLabel></IonTabButton>
-            <IonTabButton tab="tab4" href="/home/tab4"><Icon type="falv" className="tab-icon"/><IonLabel>法律指引</IonLabel></IonTabButton>
+            {footerTabs.data.map((o:any, i:number) => {
+                return (<IonTabButton key={o.name} tab={`tab${i+1}`} href={`/home/tab${i+1}`}><Icon type={o.icon} className="tab-icon"/><IonLabel>{o.name}</IonLabel></IonTabButton>)
+            })}
 ​          </IonTabBar>
     </IonTabs></IonContent></IonPage>)
 };

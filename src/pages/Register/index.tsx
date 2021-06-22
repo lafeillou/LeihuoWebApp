@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import './Register.scss';
-import {useIonModal, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, IonSelect, IonSelectOption, useIonToast } from '@ionic/react';
+import {useIonModal, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonIcon, IonTitle, IonContent, IonSelect, IonSelectOption, useIonToast } from '@ionic/react';
 import  Icon from '../../components/CustomIcon';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import classnames from 'classnames';
 import CustomSelectModal from '../../components/CustomSelect';
 import {register as sysRegister} from '../../api/common';
-
+import { chevronBackOutline} from 'ionicons/icons';
 type registerForm = {
     name: string,
     password: string,
@@ -103,7 +103,10 @@ const Register: React.FC<any> = ({handlePresent}) => {
         <IonHeader mode="ios">
             <IonToolbar>
                 <IonButtons slot="start">
-                    <IonButton onClick={() => {handlePresent()}}>返回</IonButton>
+                    <div>
+                    <IonButton onClick={() => {handlePresent()}}>
+                    <IonIcon icon={chevronBackOutline} />返回</IonButton>
+                    </div>
                 </IonButtons>
                 <IonTitle color="#252525">注 册</IonTitle>
             </IonToolbar>
@@ -163,7 +166,5 @@ const Register: React.FC<any> = ({handlePresent}) => {
     </IonPage>
     )
 };
-
-
 
 export default Register;

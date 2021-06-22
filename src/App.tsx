@@ -1,15 +1,10 @@
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
   useIonModal
 } from '@ionic/react';
-import {useEffect} from 'react';
+import {useEffect, useLayoutEffect, useState, useRef} from 'react';
 
 import { IonReactRouter } from '@ionic/react-router';
 import Register from './pages/Register';
@@ -36,41 +31,59 @@ import Home from './pages/Home';
 import LoginModal from './components/LoginModal';
 // 个人中心页面
 import Person from './pages/Person';
-// import { createBrowserHistory } from 'history';
-// const history = createBrowserHistory();
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// redux
+import { connect } from 'react-redux';
 
-// 增加redux状态管理
-import configureStore from './store/index';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/es/integration/react';
+const App: React.FC<any> = ({login}) => {
+  // 全局history 对象
+  
+  const [token, setToken] = useState<any>(null);
 
-const { persistor, store } = configureStore();
-
-let logged = false ;
-const App: React.FC = () => {
   const handleDismiss = () => {
     dismiss();
+    if (!token) {
+      routeComGlobal.current.history.push("/register")
+    }
   };
   const handlePresent = () => {
     present({
       cssClass: 'custom-login-modal',
     });
   }
+  const routeComGlobal = useRef<any>();
+  
+
   const [present, dismiss] = useIonModal(LoginModal, {
     onDismiss: handleDismiss,
+    // redux effect方法; 一切都是这种Modal挂载方式制造麻烦
+    login
   });
 
-  useEffect(() => {
-    if (!logged) {
-      handlePresent();
+  const fn = async () => {
+    let token: any= "";
+    try {
+      token = await AsyncStorage.getItem('@Auth:token');
+      if(!token) {
+        handlePresent();
+      }else {
+        setToken(token)
+        routeComGlobal.current.history.push("/home")
+      }
+    } catch (error) {
+      // 出错让重新登录
+      setToken(null)
+      /* Nothing */
     }
+  }
+    
+  useLayoutEffect(() => {
+    fn();
   }, []);
 
   // 如果没有登录，则弹出
   return (
-    <Provider store={store} >
-      <PersistGate loading={null} persistor={persistor}>
-        <IonReactRouter basename="/webApp">
+        <IonReactRouter basename="/webApp" ref={routeComGlobal}>
           <IonApp>
           <IonRouterOutlet>
             <Route  path="/register">
@@ -78,13 +91,22 @@ const App: React.FC = () => {
             </Route>
             <Route  path="/person" component={Person} />
             <Route  path="/home" render={props => <Home {...props} />} />
-            <Route exact path="/"  render={() => logged ? <Redirect to="/home" />: <Redirect to="/register" />} />
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
           </IonRouterOutlet>
           </IonApp>
         </IonReactRouter>
-      </PersistGate>
-      </Provider>
   );
 }
+const mapStateToProps = (state:any) => {
+  return {
+    userInfo: state.userInfo,
+  };
+};
 
-export default App;
+const mapDispatchToProps = (dispatch:any) => ({
+    login: dispatch.userInfo.login
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

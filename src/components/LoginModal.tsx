@@ -56,7 +56,7 @@ const LoginModal: React.FC<{
       </IonButton>
       </div>
       <div className="subBtn-item-wrap">
-          <IonButton type="submit" fill="clear" onClick={() => {onDismiss()}}>账号注册</IonButton>
+          <IonButton type="button" fill="clear" onClick={() => {onDismiss()}}>账号注册</IonButton>
       </div>
     </form>
   </div>)

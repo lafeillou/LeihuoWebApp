@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "22376628",
+      "name": "组织-app",
+      "font_class": "zuzhi-app",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "22376579",
+      "name": "性别-app",
+      "font_class": "xingbie-app",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "22376581",
+      "name": "手机-app",
+      "font_class": "shouji-app",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
       "icon_id": "22318207",
       "name": "操作-警号库",
       "font_class": "caozuo-jinghaoku",

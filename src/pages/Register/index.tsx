@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import './Register.scss';
-import {IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, IonSelect, IonSelectOption } from '@ionic/react';
+import {useIonModal, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, IonSelect, IonSelectOption } from '@ionic/react';
 import  Icon from '../../components/CustomIcon';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import classnames from 'classnames';
+import CustomSelectModal from '../../components/CustomSelect';
 
 type registerForm = {
     name: string,
@@ -21,6 +22,20 @@ const Register: React.FC<any> = ({handlePresent}) => {
     const [gender, setGender] = useState<string>("男");
 
     const {register, handleSubmit, formState: {errors}} = useForm<registerForm>();
+
+    const handleDismiss = () => {
+        dismiss();
+      };
+
+    const handleCustomSelectModalPresent = () => {
+        present({
+          cssClass: 'custom-select-modal-wrap',
+        });
+      }
+
+    const [present, dismiss] = useIonModal(CustomSelectModal, {
+        onDismiss: handleDismiss,
+    });
 
     const onSubmit: SubmitHandler<registerForm> = (data) => {
         const {name, password, phone, policeNo, sex, orgId, jurisdiction, deptId} = data;
@@ -85,7 +100,8 @@ const Register: React.FC<any> = ({handlePresent}) => {
 
                 <div className="input-item-wrap">
                     <Icon type="zuzhi-app" className="left-icon"/>
-                    <input type="text" {...register("jurisdiction", {required: true})} className={classnames('input-item', {error: errors.jurisdiction})} placeholder="请选择您的部门"/>
+                    {/* <input type="text" {...register("jurisdiction", {required: true})} className={classnames('input-item', {error: errors.jurisdiction})} placeholder="请选择您的部门"/> */}
+                    <div className="input-item" style={{lineHeight: '40px'}} onClick={() => {handleCustomSelectModalPresent()}}><span style={{color: '#ccc'}}>请选择您的部门</span></div>
                 </div>
 
                 <div className="input-item-wrap">

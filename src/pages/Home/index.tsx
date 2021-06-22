@@ -1,4 +1,4 @@
-import React, {useState, useEffect}from 'react';
+import React, {useState, useEffect, useLayoutEffect}from 'react';
 import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
 import {IonHeader, IonToolbar, IonTitle, IonPage, IonContent, IonButtons, IonIcon, IonButton, IonSearchbar, IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonLabel} from '@ionic/react';
 // import { triangle } from 'ionicons/icons';
@@ -41,15 +41,13 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
       const [accordianData, setAccordianData] = useState<any>({ selectedIndex: 0, data: [] });
 
   // 相当于componentDidMount
-  useEffect(() => {
+  useLayoutEffect(() => {
     handleTabSelect(0);
   }, []);
 
   const handleTabSelect = (index:number) => {
     // 从服务器查询数据
     getIndexTabsData(footerTabs.data[index].module).then((res) => {
-      console.log('================res===============');
-      console.log(res);
       // start loading
       if (res.data.status === 200) {
         // end loading
@@ -124,6 +122,10 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
     // }
   };
 
+  const handleTabsWillChange = (e:any) => {
+    const goToIndex = e.detail.tab.slice(-1) * 1 - 1;
+    handleTabSelect(goToIndex)
+  }
  return (
     <IonPage className="home-page-wrap">
     <IonContent>
@@ -137,7 +139,7 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
                 </IonButtons>
             </IonToolbar>
         </IonHeader>
-    <IonTabs>
+    <IonTabs onIonTabsWillChange={handleTabsWillChange}>
     <IonRouterOutlet style={{marginTop: '44px'}}>{footerTabs.data.map((o:any, i:number) => {
                 return (<Route path={`/home/tab${i+1}`} key={o.name}><Accordian data={accordianData.data}
                 select={selectAccordian}

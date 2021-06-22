@@ -9,7 +9,7 @@ const Person: React.FC<any> = () => {
         <IonHeader mode="ios">
             <IonToolbar>
                 <IonButtons slot="start">
-                    <IonBackButton defaultHref="/" text="返回"/>
+                    <IonBackButton defaultHref="/home" text="返回"/>
                 </IonButtons>
                 <IonTitle color="#252525">个人中心</IonTitle>
                 <IonButtons slot="end">
@@ -18,9 +18,7 @@ const Person: React.FC<any> = () => {
             </IonToolbar>
         </IonHeader>
         <IonContent>
-            <div className="registerForm">
-               123
-            </div>
+            <div className="registerForm"></div>
         </IonContent>
     </IonPage>
     )

@@ -24,7 +24,7 @@ let deptId:number = 0;
 let onJurisdictionValueChange: any = null;
 const Register: React.FC<any> = ({handlePresent}) => {
 
-    const [gender, setGender] = useState<string>("男");
+    const [gender, setGender] = useState<string>("");
     const [jurisdiction, setJurisdiction] = useState<string>("");
 
     const {register, handleSubmit, control, formState: {errors}} = useForm<registerForm|any>();
@@ -127,11 +127,19 @@ const Register: React.FC<any> = ({handlePresent}) => {
 
                 <div className="input-item-wrap">
                     <Icon type="xingbie-app" className="left-icon" style={{zIndex: 3}}/>
-                    {/* <input type="text" {...register("sex", {required: true})} className={classnames('input-item', {error: errors.sex})} placeholder="请选择您的性别"/> */}
-                    <IonSelect interface="action-sheet"  okText="确定" cancelText="取消" value={gender} placeholder="请选择您的性别" onIonChange={e => setGender(e.detail.value)}>
+                    <Controller 
+                    rules={{required: true}}
+                    defaultValue={gender}
+                    name="sex"
+                    control={control}
+                    render={
+                        ({field: {onChange, onBlur, value}}) => (<IonSelect className={classnames({error: errors.sex})} interface="action-sheet"  okText="确定" cancelText="取消" value={gender} placeholder="请选择您的性别" onIonChange={e => {onChange(e.detail.value);setGender(e.detail.value)}}>
                         <IonSelectOption value="女">女</IonSelectOption>
                         <IonSelectOption value="男">男</IonSelectOption>
-                    </IonSelect>
+                    </IonSelect>)
+                    }
+                    />
+                    
                 </div>
 
                 <div className="input-item-wrap">

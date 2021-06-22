@@ -9,6 +9,13 @@
       background-color: #f5f5f9;
       text-indent: 22px;
       position: relative;
+      &::part(placeholder) {
+        color: #ccc;
+        opacity: 1;
+      }
+      &.error {
+        background-color: rgba(235, 68, 90, 0.65);
+      }
     }
     // 左边的icon
     .left-icon {

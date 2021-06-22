@@ -9,15 +9,20 @@
 
   .login-modal-wrap {
     width: 343px;
-    min-height: 313px;
-    background: url("../assets/img/login_img_top@2x.png") no-repeat 0 44px;
+    height: 100%;
+    background: url("../assets/img/login_img_top@2x.png") no-repeat 0 30%;
     background-size: 100% auto;
     flex: none;
-    margin-top: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    @media screen and(max-height: 520px) {
+      background-position: 0 0;
+    }
 
     // 登录表单
     .login-form {
-      margin-top: 373px;
+      flex: 1;
       // 忘记密码 和 账号注册 按钮容器
       .subBtn-item-wrap {
         margin-top: -8px;

@@ -7,11 +7,12 @@ import './CustomSelect.scss';
 // import {useForm, SubmitHandler} from 'react-hook-form';
 import {getDepList} from "../api/common";
 import classNames from 'classnames';
-import { filter } from 'ionicons/icons';
+
 let totalDepListData: any[] = [];
 const CustomSelectModal: React.FC<{
     onDismiss: () => void;
-  }> = ({ onDismiss}) => {
+    onHandleCustomSelect: (data:any) => void;
+  }> = ({ onDismiss, onHandleCustomSelect}) => {
     const [depList, setDepList] = useState<any[]>([]);
     // 当前选择的部门
     const [currentSelectDep, setCurrentSelectDep] = useState<any>(null);
@@ -63,7 +64,10 @@ const CustomSelectModal: React.FC<{
         })
     }, [])
     return (<div className="custom-select-modal-inner">
-    <div className="custom-select-modal-top" onClick={() => {onDismiss()}}></div>
+    <div className="custom-select-modal-top" onClick={() => {onHandleCustomSelect({
+        currentSelectDep,
+        currentSelectUnit
+    }); onDismiss();}}></div>
     <div className="custom-select-modal-bottom">
         <form className="search-input-wrap" onSubmit={(e) => {e.preventDefault();handleSearch()}}>
             <input  type="text" ref={inputRef} placeholder="请输入机构名称搜索" />

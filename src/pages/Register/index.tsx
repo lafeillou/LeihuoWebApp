@@ -32,11 +32,18 @@ const Register: React.FC<any> = ({handlePresent}) => {
           cssClass: 'custom-select-modal-wrap',
         });
       }
-
+    
+      // 处理自定义机构选择组件，返回的选择结果
+    const handleCustomSelectResult = (data: any) => {
+        console.log(data)
+    }
     const [present, dismiss] = useIonModal(CustomSelectModal, {
         onDismiss: handleDismiss,
+        // 自定义机构选择组件，回填表单
+        onHandleCustomSelect: handleCustomSelectResult,
     });
 
+    
     const onSubmit: SubmitHandler<registerForm> = (data) => {
         const {name, password, phone, policeNo, sex, orgId, jurisdiction, deptId} = data;
         console.log(data)

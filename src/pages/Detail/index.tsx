@@ -1,10 +1,8 @@
 import React from 'react';
 import './Person.scss';
-import {IonPage,IonHeader, IonList,IonItem, IonText, IonLabel, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
-import {connect} from "react-redux";
+import {IonPage, IonIcon, IonSelect,IonSelectOption,IonToggle,IonInput, IonDatetime, IonHeader, IonList,IonItem, IonText, IonLabel, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
 
-const Person: React.FC<any> = (props:any) => {
-    const {name, phone, policeNo, sex, deptName, orgName} = props.userInfo;
+const Detail: React.FC<any> = () => {
     return (
     <IonPage>
         <IonHeader mode="ios">
@@ -26,7 +24,7 @@ const Person: React.FC<any> = (props:any) => {
                     您的手机号
                     </IonLabel>
                     <IonText color="#333" slot="end">
-                    {phone}
+                    13697331010
                     </IonText>
                 </IonItem>
                 <IonItem className="listItem">
@@ -34,7 +32,7 @@ const Person: React.FC<any> = (props:any) => {
                     您的警号
                     </IonLabel>
                     <IonText color="#333" slot="end">
-                    {policeNo}
+                    31010
                     </IonText>
                 </IonItem>
                 <IonItem className="listItem">
@@ -42,7 +40,7 @@ const Person: React.FC<any> = (props:any) => {
                     您的性别
                     </IonLabel>
                     <IonText color="#333" slot="end">
-                    {sex}
+                    男
                     </IonText>
                 </IonItem>
                 <IonItem className="listItem">
@@ -50,7 +48,7 @@ const Person: React.FC<any> = (props:any) => {
                     您的姓名
                     </IonLabel>
                     <IonText color="#333" slot="end">
-                    {name}
+                    娄永亮
                     </IonText>
                 </IonItem>
                 <IonItem className="listItem">
@@ -58,7 +56,7 @@ const Person: React.FC<any> = (props:any) => {
                     您的单位
                     </IonLabel>
                     <IonText color="#333" slot="end">
-                    {orgName}
+                    荆州市公安局
                     </IonText>
                 </IonItem>
                 <IonItem className="listItem">
@@ -66,7 +64,7 @@ const Person: React.FC<any> = (props:any) => {
                     您的部门
                     </IonLabel>
                     <IonText color="#333" slot="end">
-                    {deptName}
+                    情报科
                     </IonText>
                 </IonItem>
             </IonList>
@@ -85,12 +83,4 @@ const Person: React.FC<any> = (props:any) => {
     )
 };
 
-const mapStateToProps = (state:any) => {
-    return {
-        userInfo: state.userInfo,
-    };
-};
-
-const mapDispatchToProps = (dispatch:any) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Person);
+export default Detail;

@@ -2,7 +2,7 @@ import React, {useState, useEffect, useLayoutEffect}from 'react';
 import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
 import {IonHeader, IonToolbar, IonTitle, IonPage, IonContent, IonButtons, IonIcon, IonButton, IonSearchbar, IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonLabel} from '@ionic/react';
 // import { triangle } from 'ionicons/icons';
-import './home.scss';
+import './Home.scss';
 import Accordian from '../../components/Accordian';
 import Icon from '../../components/CustomIcon';
 

@@ -217,3 +217,11 @@ export const getIndexTabsBusinessData = (moduleId) => {
     url: `/business/queryIndexBusiness?module=${moduleId}`,
   });
 };
+
+// 查询业务详情
+export const getDetailInfo = (summaryId) => {
+  return axios({
+    method: "get",
+    url: `/business/queryBusinessDetail?summaryId=${summaryId}`,
+  });
+};

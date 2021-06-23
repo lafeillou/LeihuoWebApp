@@ -1,0 +1,37 @@
+.detail-page-wrap {
+  // 表格样式
+  table.custom-detail-table {
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    tr {
+      td {
+        border: 1px solid #e8e8e8;
+        font-size: 1.2em;
+        width: 60%;
+        padding: 0.5em 0.5em;
+        &:nth-child(1) {
+          width: 40%;
+          color: #999;
+          text-align: right;
+          padding-right: 0.2em;
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+  .custom-segment-wrap {
+    // 搞不清楚怎么玩
+    ion-segment-button {
+      //   background-color: blue;
+      //   &::part(native) {
+      //     --color: yellow;
+      //   }
+    }
+    ion-segment-button.segment-button-checked {
+      &::part(native) {
+        background-color: #3296fa;
+        color: #fff;
+      }
+    }
+  }
+}

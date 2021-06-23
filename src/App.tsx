@@ -31,15 +31,22 @@ import Home from './pages/Home';
 import LoginModal from './components/LoginModal';
 // 个人中心页面
 import Person from './pages/Person';
+// 业务（消息）详情页面
+import Detail from './pages/Detail';
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // redux
 import { connect } from 'react-redux';
+// 在CustomListItem.tsx中也写了一份，没有相互覆写
+declare global {
+  interface Window {
+    leihuoGlobalHistory: any;
+  }
+}
 
 const App: React.FC<any> = ({login}) => {
   // 全局history 对象
-  
   const [token, setToken] = useState<any>(null);
-
   const handleDismiss = () => {
     dismiss();
     if (!token) {
@@ -69,6 +76,8 @@ const App: React.FC<any> = ({login}) => {
       }else {
         setToken(token)
         routeComGlobal.current.history.push("/home")
+        // 放到window上去
+        window.leihuoGlobalHistory = routeComGlobal.current.history
       }
     } catch (error) {
       // 出错让重新登录
@@ -90,6 +99,7 @@ const App: React.FC<any> = ({login}) => {
               <Register handlePresent={handlePresent} />
             </Route>
             <Route  path="/person" component={Person} />
+            <Route  path="/detail" component={Detail} />
             <Route  path="/home" render={props => <Home {...props} />} />
             <Route exact path="/">
               <Redirect to="/home" />

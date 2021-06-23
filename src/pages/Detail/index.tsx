@@ -1,83 +1,62 @@
-import React from 'react';
-import './Person.scss';
-import {IonPage, IonIcon, IonSelect,IonSelectOption,IonToggle,IonInput, IonDatetime, IonHeader, IonList,IonItem, IonText, IonLabel, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import './Detail.scss';
+import {IonSegment, IonSegmentButton, IonPage, IonIcon, IonSelect,IonSelectOption,IonToggle,IonInput, IonDatetime, IonHeader, IonList,IonItem, IonText, IonLabel, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent, useIonToast} from '@ionic/react';
+import {getDetailInfo} from '../../api/common';
+import template from "./template/index";
 
 const Detail: React.FC<any> = () => {
+    const [code, setCode] = useState<any>("")
+    const [present, dismiss] = useIonToast();
+
+    useLayoutEffect(() => {
+        console.log("===Detail Page入参===")
+        console.log(template)
+        const state = window.leihuoGlobalHistory?.location?.state;
+        // 目前有可能取不到
+        if (state && state.summaryId) {
+            getDetailInfo(state.summaryId).then(res => {
+                if (res.data.success){
+                    const {businessModule, businessType} = res.data.data;
+                    const templateStr = template[businessModule][businessType]
+                    if (templateStr) {
+                        const str = templateStr.replace(/<table>/gmi, '<table className="custom-detail-table">').replace(/\r\n/gmi, '').replace(/\{/gmi,'{leihuoGlobal.');
+                        const node = window.Babel.transform(str, { presets: ['es2015', 'react']});
+                        window.leihuoGlobal = {...res.data.data}
+                        setCode(node.code)
+                    }
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        } else {
+            present({
+                message: "发生错误，请点击返回重试！",
+                duration: 3000,
+            });
+        }
+    }, [])
     return (
-    <IonPage>
+    <IonPage className="detail-page-wrap">
         <IonHeader mode="ios">
             <IonToolbar>
                 <IonButtons slot="start">
                     <IonBackButton defaultHref="/home" text="返回"/>
                 </IonButtons>
-                <IonTitle color="#252525">个人中心</IonTitle>
+                <IonSegment value="0" className="custom-segment-wrap" onIonChange={e => { console.log('Segment selected', e.detail.value);console.log(e.detail.value) }}>
+                    <IonSegmentButton value="0">
+                        <IonLabel>消息详情</IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton disabled value="1">
+                        <IonLabel>反馈记录</IonLabel>
+                    </IonSegmentButton>
+                </IonSegment>
                 <IonButtons slot="end">
-                    <IonButton>编辑</IonButton>
+                    <IonButton>下发</IonButton>
                 </IonButtons>
             </IonToolbar>
         </IonHeader>
         <IonContent>
-            <form className="person-editForm">
-            <IonList>
-                <IonItem className="listItem">
-                    <IonLabel>
-                    您的手机号
-                    </IonLabel>
-                    <IonText color="#333" slot="end">
-                    13697331010
-                    </IonText>
-                </IonItem>
-                <IonItem className="listItem">
-                    <IonLabel>
-                    您的警号
-                    </IonLabel>
-                    <IonText color="#333" slot="end">
-                    31010
-                    </IonText>
-                </IonItem>
-                <IonItem className="listItem">
-                    <IonLabel>
-                    您的性别
-                    </IonLabel>
-                    <IonText color="#333" slot="end">
-                    男
-                    </IonText>
-                </IonItem>
-                <IonItem className="listItem">
-                    <IonLabel>
-                    您的姓名
-                    </IonLabel>
-                    <IonText color="#333" slot="end">
-                    娄永亮
-                    </IonText>
-                </IonItem>
-                <IonItem className="listItem">
-                    <IonLabel>
-                    您的单位
-                    </IonLabel>
-                    <IonText color="#333" slot="end">
-                    荆州市公安局
-                    </IonText>
-                </IonItem>
-                <IonItem className="listItem">
-                    <IonLabel>
-                    您的部门
-                    </IonLabel>
-                    <IonText color="#333" slot="end">
-                    情报科
-                    </IonText>
-                </IonItem>
-            </IonList>
-
-                <div className="btns-wrap">
-                    <IonButton type="button" expand="block" className="exitBtn">
-                    退出登录
-                    </IonButton>
-                    <IonButton type="button" expand="block" className="changeBtn">
-                    部门调换
-                    </IonButton>
-                </div>
-            </form>
+        {eval(code)}
         </IonContent>
     </IonPage>
     )

@@ -1,4 +1,45 @@
 .accordianItemWrap {
+  // 记录列表
+  .custom-list-wrap {
+    padding-left: 32px;
+    padding-right: 16px;
+    // 更多按钮
+    .check-for-more {
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+      span {
+        color: #32aafe;
+      }
+    }
+
+    .custom-list-item {
+      border-bottom: 1px solid #f0f0f0;
+
+      p {
+        margin: 0.4em 0;
+      }
+      p:nth-child(1) {
+        display: flex;
+        height: 18px;
+        line-height: 18px;
+        margin-top: 1em;
+        span {
+          &:nth-child(1) {
+            flex: auto;
+            color: #333;
+            font-weight: 400;
+          }
+
+          &:nth-child(2) {
+            flex: none;
+            font-size: 14px;
+            color: #999;
+          }
+        }
+      }
+    }
+  }
   .accordianItemWrap-head {
     height: 50px;
     line-height: 50px;

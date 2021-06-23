@@ -1,4 +1,4 @@
-import {IonIcon} from "@ionic/react";
+import {IonIcon, IonButton} from "@ionic/react";
 import { caretDownOutline, caretForwardOutline} from 'ionicons/icons';
 import CustomListItem from "./CustomListItem";
 import './AccordianItem.scss';
@@ -19,19 +19,19 @@ const AccordianItem = (props:any) => {
           </div>
         </div>
         {isActive && (
-          <div>
+          <div className="custom-list-wrap">
             {businessList.map((o:any, i:number) => {
-              return <CustomListItem className="custom-list-item" {...o} key={o.summaryId} index={i} setReadStatus={setReadStatus} />;
+              return <CustomListItem {...o} key={o.summaryId} index={i} setReadStatus={setReadStatus} />;
             })}
   
             {businessList.length > 0 && (
-              <button
+              <IonButton expand="block" fill="clear" className="check-for-more"
                 onClick={() => {
                   // Actions.subModuleList({ module, subType: type, title: name, setReadStatus });
                 }}
               >
                 <span>{'查看更多>>'}</span>
-              </button>
+              </IonButton>
             )}
           </div>
         )}

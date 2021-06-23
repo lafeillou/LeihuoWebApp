@@ -54,11 +54,6 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
         setAccordianData((state:any) => {
           // 这里的state是上一次的state
           const data = res.data.data;
-          console.log("====xxx====")
-          console.log({
-            ...state,
-            data,
-          });
           return {
             ...state,
             data,

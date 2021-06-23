@@ -179,7 +179,13 @@ export const login = (data) => {
     data,
   });
 };
-
+// 登出接口
+export const logout = () => {
+  return axios({
+    method: "post",
+    url: "/sys/logout",
+  });
+};
 // 注册接口
 export const register = (data) => {
   return axios({
@@ -201,5 +207,13 @@ export const getDepList = () => {
   return axios({
     method: "get",
     url: "/org/queryOrgDepartmentList",
+  });
+};
+
+// 首页某个点击某个tab获取数据(2021-06-23)
+export const getIndexTabsBusinessData = (moduleId) => {
+  return axios({
+    method: "get",
+    url: `/business/queryIndexBusiness?module=${moduleId}`,
   });
 };

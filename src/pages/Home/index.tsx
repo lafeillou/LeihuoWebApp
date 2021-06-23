@@ -7,7 +7,7 @@ import Accordian from '../../components/Accordian';
 import Icon from '../../components/CustomIcon';
 
 // 引入接口
-import {getIndexTabsData} from '../../api/common';
+import {getIndexTabsData, getIndexTabsBusinessData} from '../../api/common';
 import _ from "lodash";
 
 const Home: React.FC<RouteComponentProps> = ({match}) => {
@@ -47,12 +47,18 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
 
   const handleTabSelect = (index:number) => {
     // 从服务器查询数据
-    getIndexTabsData(footerTabs.data[index].module).then((res) => {
+    getIndexTabsBusinessData(footerTabs.data[index].module).then((res) => {
       // start loading
       if (res.data.status === 200) {
         // end loading
         setAccordianData((state:any) => {
+          // 这里的state是上一次的state
           const data = res.data.data;
+          console.log("====xxx====")
+          console.log({
+            ...state,
+            data,
+          });
           return {
             ...state,
             data,
@@ -93,7 +99,6 @@ const Home: React.FC<RouteComponentProps> = ({match}) => {
 
   const setReadStatus = ({ module, subType, index }:any) => {
     setAccordianData((state:any) => {
-      console.log(state);
       const newData = [...state.data];
       const Index = _.findIndex(newData, (o:any) => {
         return o.type === subType;

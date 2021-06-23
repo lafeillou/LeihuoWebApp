@@ -1,9 +1,9 @@
 import {IonIcon} from "@ionic/react";
 import { caretDownOutline, caretForwardOutline} from 'ionicons/icons';
-import CustomList from "./CustomListItem";
+import CustomListItem from "./CustomListItem";
 import './AccordianItem.scss';
 const AccordianItem = (props:any) => {
-    const { name, type, messages, select, selectedIndex, setReadStatus, index, module } = props;
+    const { name, type, businessList, select, selectedIndex, setReadStatus, index, module } = props;
     const isActive = index === selectedIndex;
     return (
       <div className="accordianItemWrap">
@@ -20,11 +20,11 @@ const AccordianItem = (props:any) => {
         </div>
         {isActive && (
           <div>
-            {messages.map((o:any, i:number) => {
-              return <CustomList {...o} key={o.messageId} index={i} setReadStatus={setReadStatus} />;
+            {businessList.map((o:any, i:number) => {
+              return <CustomListItem className="custom-list-item" {...o} key={o.summaryId} index={i} setReadStatus={setReadStatus} />;
             })}
   
-            {messages.length > 0 && (
+            {businessList.length > 0 && (
               <button
                 onClick={() => {
                   // Actions.subModuleList({ module, subType: type, title: name, setReadStatus });

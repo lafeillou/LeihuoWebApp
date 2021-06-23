@@ -19,18 +19,18 @@ const AccordianItem = (props:any) => {
           </div>
         </div>
         {isActive && (
-          <div className="custom-list-wrap">
+          <div>
+            <div className="custom-list-wrap">
             {businessList.map((o:any, i:number) => {
               return <CustomListItem {...o} key={o.summaryId} index={i} setReadStatus={setReadStatus} />;
             })}
-  
+            </div>
             {businessList.length > 0 && (
               <IonButton expand="block" fill="clear" className="check-for-more"
                 onClick={() => {
                   // Actions.subModuleList({ module, subType: type, title: name, setReadStatus });
                 }}
-              >
-                <span>{'查看更多>>'}</span>
+              ><span>{'查看更多>>'}</span>
               </IonButton>
             )}
           </div>

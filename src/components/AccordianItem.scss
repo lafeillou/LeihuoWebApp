@@ -1,17 +1,18 @@
 .accordianItemWrap {
+  // 更多按钮
+  .check-for-more {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin: 5px;
+    span {
+      color: #32aafe;
+    }
+  }
   // 记录列表
   .custom-list-wrap {
     padding-left: 32px;
     padding-right: 16px;
-    // 更多按钮
-    .check-for-more {
-      text-align: center;
-      height: 50px;
-      line-height: 50px;
-      span {
-        color: #32aafe;
-      }
-    }
 
     .custom-list-item {
       border-bottom: 1px solid #f0f0f0;

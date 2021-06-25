@@ -75,9 +75,9 @@ const App: React.FC<any> = ({login}) => {
         handlePresent();
       }else {
         setToken(token)
-        routeComGlobal.current.history.push("/home")
         // 放到window上去
         window.leihuoGlobalHistory = routeComGlobal.current.history
+        routeComGlobal.current.history.push("/home")
       }
     } catch (error) {
       // 出错让重新登录

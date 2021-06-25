@@ -1,10 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {IonButton, IonContent} from '@ionic/react'
 import './CustomSelect.scss';
-// import  Icon from './CustomIcon';
-// import classnames from 'classnames';
-
-// import {useForm, SubmitHandler} from 'react-hook-form';
 import {getDepList} from "../api/common";
 import classNames from 'classnames';
 
@@ -48,8 +44,6 @@ const CustomSelectModal: React.FC<{
     }
     useEffect(()=>{
         getDepList().then(res => {
-            console.log('====getDepList====')
-            console.log(res)
             if (res.data.success) {
                 totalDepListData = res.data.data
                 setDepList(res.data.data)

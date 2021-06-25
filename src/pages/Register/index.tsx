@@ -79,7 +79,7 @@ const Register: React.FC<any> = ({handlePresent}) => {
                 })
                 // 返回登录界面，重新登录
                 setTimeout(() => {
-                    window.location.href = '/'
+                    window.location.href = "/webApp"
                 }, 3000) 
                 // 这里调用dismiss 竟然没用，就采用了window.location.href的写法
                 return

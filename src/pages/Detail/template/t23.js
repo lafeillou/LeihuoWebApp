@@ -36,15 +36,15 @@ const templateStr = `
             <td>{administrativeNo}</td>
         </tr>
         <tr>
-            <td>警情行政区划+系统接警单编号</td>
+            <td>警情行政区划/接警单<br/>编号</td>
             <td>{alarmNo}</td>
         </tr>
         <tr>
-            <td>报警方式代码</td>
+            <td>报警方式</td>
             <td>{alarmMethodCode}</td>
         </tr>
         <tr>
-            <td>接警类型代码</td>
+            <td>接警类型</td>
             <td>{alarmTypeCode}</td>
         </tr>
         <tr>

@@ -1,10 +1,42 @@
 import React from 'react';
 import './Person.scss';
-import {IonPage,IonHeader, IonList,IonItem, IonText, IonLabel, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
+import {useIonAlert, useIonToast, IonPage,IonHeader, IonList,IonItem, IonText, IonLabel, IonToolbar, IonButtons, IonButton, IonBackButton, IonTitle, IonContent } from '@ionic/react';
 import {connect} from "react-redux";
+import {logout} from "../../api/common";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Person: React.FC<any> = (props:any) => {
     const {name, phone, policeNo, sex, deptName, orgName} = props.userInfo;
+    // const [present, dismiss] = useIonToast();
+    const [alertPresent, alertDismiss] = useIonAlert();
+    const handleLogout = () => {
+        
+        // 登出操作
+        logout().then(res => {
+            // console.log(res)
+            if (res.data.success) {
+                // present({
+                //     message: "安全登出，3秒钟后回到登录界面",
+                //     duration: 3000
+                // })
+
+                alertPresent({
+                    header: '提示',
+                    message: '您确定要退出吗？',
+                    buttons: [
+                      '取消',
+                      { text: '确定', handler: (d) => {
+                        // 清空所有app缓存
+                        AsyncStorage.clear();
+                        window.location.href = "/webApp"
+                      } },
+                    ],
+                    onDidDismiss: (e) => console.log('关闭确认框'),
+                })
+                
+            }
+        })
+    }
     return (
     <IonPage>
         <IonHeader mode="ios">
@@ -72,7 +104,7 @@ const Person: React.FC<any> = (props:any) => {
             </IonList>
 
                 <div className="btns-wrap">
-                    <IonButton type="button" expand="block" className="exitBtn">
+                    <IonButton onClick={() => {handleLogout()}}type="button" expand="block" className="exitBtn">
                     退出登录
                     </IonButton>
                     <IonButton type="button" expand="block" className="changeBtn">

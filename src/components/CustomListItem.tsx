@@ -8,7 +8,6 @@ declare global {
 
 const CustomListItem = (props:any) => {
   const handleClick = (summaryId: any) => {
-    // console.log(summaryId);
     window.leihuoGlobalHistory.push(`/detail?summaryId=${summaryId}`, {summaryId})
   }
 

@@ -4,8 +4,6 @@ import './LoginModal.scss';
 import  Icon from './CustomIcon';
 import classnames from 'classnames';
 import {useForm, SubmitHandler} from 'react-hook-form';
-// redux
-// import { connect } from 'react-redux';
 
 type loginForm = {
   name: string,
@@ -21,7 +19,6 @@ const LoginModal: React.FC<{
     const onSubmit: SubmitHandler<loginForm> = (data) => {
       const {policeCode, name} = data;
       // redux effects
-      console.log(login);
       login({...data, present})
     }
 
@@ -48,15 +45,5 @@ const LoginModal: React.FC<{
   </div>)
     
   };
-
-  // const mapStateToProps = (state:any) => {
-  //   return {
-  //     userInfo: state.userInfo,
-  //   };
-  // };
-  
-  // const mapDispatchToProps = (dispatch:any) => ({
-  //     login: dispatch.userInfo.login
-  // });
 
 export default LoginModal;

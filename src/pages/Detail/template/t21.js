@@ -29,11 +29,11 @@ const templateStr = `
             <td>{victimAccount}</td>
         </tr>
         <tr>
-            <td>受害人姓名</td>
+            <td>受害人<br/>姓名</td>
             <td>{victimName}</td>
         </tr>
         <tr>
-            <td>受害人身份证号</td>
+            <td>受害人<br/>身份证号</td>
             <td>{victimCard}</td>
         </tr>
         <tr>

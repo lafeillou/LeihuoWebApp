@@ -29,7 +29,7 @@ const store = {
               AsyncStorage.setItem("@Auth:token", res.data.data.token);
               // to do 登录成功后的操作
               // 设置redux跳转去首页
-              window.location.href = "/";
+              window.location.href = "/webApp";
             }
           })
           .catch((err) => {
